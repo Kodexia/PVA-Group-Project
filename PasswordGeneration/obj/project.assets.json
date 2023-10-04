@@ -8,24 +8,19 @@
     "net6.0": []
   },
   "packageFolders": {
-    "C:\\Users\\adamh\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "C:\\Users\\liboj\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\CODING\\PVA-projekt\\PasswordGeneration\\PasswordGeneration.csproj",
+      "projectUniqueName": "C:\\Users\\liboj\\RiderProjects\\PVA-projekt\\PasswordGeneration\\PasswordGeneration.csproj",
       "projectName": "PasswordGeneration",
-      "projectPath": "C:\\CODING\\PVA-projekt\\PasswordGeneration\\PasswordGeneration.csproj",
-      "packagesPath": "C:\\Users\\adamh\\.nuget\\packages\\",
-      "outputPath": "C:\\CODING\\PVA-projekt\\PasswordGeneration\\obj\\",
+      "projectPath": "C:\\Users\\liboj\\RiderProjects\\PVA-projekt\\PasswordGeneration\\PasswordGeneration.csproj",
+      "packagesPath": "C:\\Users\\liboj\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\liboj\\RiderProjects\\PVA-projekt\\PasswordGeneration\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-      ],
       "configFilePaths": [
-        "C:\\Users\\adamh\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Users\\liboj\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -66,7 +61,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.304\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.302\\RuntimeIdentifierGraph.json"
       }
     }
   }
