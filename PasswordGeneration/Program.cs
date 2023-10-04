@@ -31,7 +31,145 @@ void Begin()
 
 void GeneratePasswordConversation()
 {
-    // Conv for generating password
+    int passwordLength = 8;
+    bool smallLetters, bigLetters, haveNumbers, haveSpecial;
+    
+    Console.WriteLine("How many characters do you want in your password?");
+    passwordLength = InputStringToNumber();
+    Console.Clear();
+    
+    Console.WriteLine("What letters do you want in your password?");
+    Console.WriteLine("1 - Only lower case letters");
+    Console.WriteLine("2 - Only upper case letters");
+    Console.WriteLine("3 - Both upper & lower case letters");
+    string output = Console.ReadLine();
+    while (!CheckForCorrectAnswer(new[] { "1", "2", "3" }, output))
+    {
+        Console.WriteLine("Seems like this answer is not what we expected, try again");
+        output = Console.ReadLine();
+    }
+
+    switch (output)
+    {
+        case "1":
+            smallLetters = true;
+            bigLetters = false;
+            break;
+        case "2":
+            smallLetters = false;
+            bigLetters = true;
+            break;
+        case "3":
+            smallLetters = true;
+            bigLetters = true;
+            break;
+        default:
+            smallLetters = true;
+            bigLetters = true;
+            break;
+    }
+    
+    Console.Clear();
+    haveNumbers = TrueFalseQuestion("Do you want your password to contain numbers?");
+    Console.Clear();
+    haveSpecial = TrueFalseQuestion("Do you want your password to contain special characters? ($, &, ...)");
+    Console.Clear();
+    Console.WriteLine("Generating password with selected options:");
+    Console.WriteLine("Length: " + passwordLength);
+    Console.WriteLine("Lower case letters: " + smallLetters.ToString().ToUpper());
+    Console.WriteLine("Upper case letters: " + bigLetters.ToString().ToUpper());
+    Console.WriteLine("Use numbers: " + haveNumbers.ToString().ToUpper());
+    Console.WriteLine("Use special characters: " + haveSpecial.ToString().ToUpper());
+    Console.WriteLine("");
+
+    WhatToDoWithPassword(passwordLength, smallLetters, bigLetters, haveNumbers, haveSpecial);
+}
+
+void WhatToDoWithPassword(int passLength, bool smallLetters, bool bigLetters, bool useNumbers, bool useSpecial)
+{
+    string password =
+        PasswordGenerateAPI.GeneratePassword(passLength, smallLetters, bigLetters, useNumbers, useSpecial);
+    Console.WriteLine("Successfully generated a password! Press enter to continue");
+    Console.WriteLine("Password: " + password);
+    Console.ReadLine();
+    
+    Console.WriteLine("Password: " + password);
+    Console.WriteLine("");
+    Console.WriteLine("What do you want to do with this password?");
+    Console.WriteLine("1 - Encrypt & Save the password into a file and exit");
+    Console.WriteLine("2 - Generate a new password with the same settings");
+    Console.WriteLine("3 - Generate a new password with new settings");
+    Console.WriteLine("4 - Close the program");
+    string output = Console.ReadLine();
+    while (!CheckForCorrectAnswer(new[] { "1", "2", "3", "4" }, output))
+    {
+        Console.WriteLine("Seems like this answer is not what we expected, try again");
+        output = Console.ReadLine();
+    }
+
+    switch (output)
+    {
+        case "1":
+            string hashedPassword = PasswordEncryptionAPI.Encrypt(password);
+            api.SaveNewPasswordToFile(hashedPassword);
+            Environment.Exit(0);
+            break;
+        case "2":
+            Console.Clear();
+            WhatToDoWithPassword(passLength, smallLetters, bigLetters, useNumbers, useSpecial);
+            break;
+        case "3":
+            Console.Clear();
+            GeneratePasswordConversation();
+            break;
+        case "4":
+            Environment.Exit(0);
+            break;
+    }
+}
+
+bool TrueFalseQuestion(string question)
+{
+    Console.WriteLine(question);
+    Console.WriteLine("1 - True");
+    Console.WriteLine("2 - False");
+    string output = Console.ReadLine();
+    while (!CheckForCorrectAnswer(new[] { "1", "2" }, output))
+    {
+        Console.WriteLine("Seems like this answer is not what we expected, try again");
+        output = Console.ReadLine();
+    }
+
+    return output.Equals("1");
+}
+
+int InputStringToNumber()
+{
+    string input = Console.ReadLine();
+    bool isNumber = false;
+    int returningNumber = 0;
+    while (!isNumber)
+    {
+        try
+        {
+            int tryNumber = Convert.ToInt32(input);
+            returningNumber = tryNumber;
+            isNumber = true;
+        }
+        catch (Exception ex)
+        {
+            if (ex is FormatException)
+            {
+                Console.WriteLine("Provided value can't be converted to int. Please try again");
+                input = Console.ReadLine();
+                continue;
+            }
+            Console.WriteLine("The number is too large, try a smaller one.");
+            input = Console.ReadLine();
+        }
+    }
+
+    return returningNumber;
 }
 
 bool CheckForCorrectAnswer(string[] answers, string currentAnswer)
@@ -41,18 +179,18 @@ bool CheckForCorrectAnswer(string[] answers, string currentAnswer)
 
 void ShowAllPasswords()
 {
-    string[] hashedPasswords = api.ReadAllPasswordsFromFile();
-    if (hashedPasswords.Length == 0)
+    string[] encrypted = api.ReadAllPasswordsFromFile();
+    if (encrypted.Length == 0)
     {
         Console.WriteLine("You do not have any saved passwords.");
         AskToContinue();
         return;
     }
     
-    foreach (string hashedPassword in hashedPasswords)
+    foreach (string encryptedString in encrypted)
     {
-        // ToDo: Decrypt
-        Console.WriteLine(hashedPassword);
+        string password = PasswordEncryptionAPI.Decrypt(encryptedString); 
+        Console.WriteLine(password);
     }
     Console.WriteLine("--");
     AskToContinue();
