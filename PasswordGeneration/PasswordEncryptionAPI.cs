@@ -5,43 +5,54 @@ using System.IO;
 using System.Security.Cryptography;
 using System.Text;
 
-public class PasswordEncryption
+public class PasswordEncryptionAPI
 {
-    // This is a constant key for demonstration. 
-    // In a real-world scenario, you should securely generate and store the key and IV.
-    private static readonly byte[] Key = Encoding.UTF8.GetBytes("aVerySecretKey12345678"); // 16 bytes for AES128, 24 bytes for AES192, 32 bytes for AES256
-    private static readonly byte[] IV = Encoding.UTF8.GetBytes("aVerySecretIV12"); // AES always uses 128-bit IV regardless of key size
+    private static readonly byte[] AesKey = Encoding.UTF8.GetBytes("ap5LpoTFiDn3iFR2iLsaK4b01ow5SmWE");
+    private static readonly byte[] AesIV = new byte[16];
 
-    public static string EncryptPassword(string password)
+    public static string Encrypt(string plainText)
     {
-        using Aes aes = Aes.Create();
-        aes.Key = Key;
-        aes.IV = IV;
-
-        ICryptoTransform encryptor = aes.CreateEncryptor(aes.Key, aes.IV);
-
-        using MemoryStream memoryStream = new MemoryStream();
-        using (CryptoStream cryptoStream = new CryptoStream(memoryStream, encryptor, CryptoStreamMode.Write))
-        using (StreamWriter streamWriter = new StreamWriter(cryptoStream))
+        using (Aes aes = Aes.Create())
         {
-            streamWriter.Write(password);
-        }
+            aes.Key = AesKey;
+            aes.IV = AesIV;
 
-        return Convert.ToBase64String(memoryStream.ToArray());
+            using (MemoryStream memoryStream = new MemoryStream())
+            {
+                using (CryptoStream cryptoStream = new CryptoStream(memoryStream, aes.CreateEncryptor(), CryptoStreamMode.Write))
+                using (StreamWriter writer = new StreamWriter(cryptoStream))
+                {
+                    writer.Write(plainText);
+                }
+
+                byte[] encryptedBytes = memoryStream.ToArray();
+                return Convert.ToBase64String(encryptedBytes);
+            }
+        }
     }
 
-    public static string DecryptPassword(string encryptedPassword)
+    public static string Decrypt(string encryptedText)
     {
-        using Aes aes = Aes.Create();
-        aes.Key = Key;
-        aes.IV = IV;
+        try
+        {
+            using (Aes aes = Aes.Create())
+            {
+                aes.Key = AesKey;
+                aes.IV = AesIV;
 
-        ICryptoTransform decryptor = aes.CreateDecryptor(aes.Key, aes.IV);
-
-        using MemoryStream memoryStream = new MemoryStream(Convert.FromBase64String(encryptedPassword));
-        using CryptoStream cryptoStream = new CryptoStream(memoryStream, decryptor, CryptoStreamMode.Read);
-        using StreamReader streamReader = new StreamReader(cryptoStream);
+                using (MemoryStream memoryStream = new MemoryStream(Convert.FromBase64String(encryptedText)))
+                {
+                    using (CryptoStream cryptoStream = new CryptoStream(memoryStream, aes.CreateDecryptor(), CryptoStreamMode.Read))
+                    using (StreamReader reader = new StreamReader(cryptoStream))
+                    {
+                        return reader.ReadToEnd();
+                    }
+                }
+            }
+        }
+        catch(Exception ex) {
+            return "Password is encrypted with different key.";
+        }
         
-        return streamReader.ReadToEnd();
     }
 }
