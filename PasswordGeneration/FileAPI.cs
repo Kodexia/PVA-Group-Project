@@ -1,5 +1,8 @@
 ﻿namespace PasswordGeneration;
 
+using System;
+using System.IO;
+
 public class FileAPI
 {
     private readonly string filePath;
