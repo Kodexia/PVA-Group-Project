@@ -2,5 +2,8 @@
 
 public class PasswordGenerateAPI
 {
-    public String generatePassword(){}
+    public string GeneratePassword()
+    {
+        return "";
+    }
 }
