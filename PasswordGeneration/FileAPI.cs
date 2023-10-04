@@ -10,4 +10,9 @@ public class FileAPI
     {
         return;
     }
+
+    public string[] ReadAllPasswords()
+    {
+        return null;
+    }
 }
