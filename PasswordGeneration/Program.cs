@@ -24,7 +24,14 @@ void Begin()
         ShowAllPasswords();
         return;
     }
-    // Generate pass func
+    
+    Console.Clear();
+    GeneratePasswordConversation();
+}
+
+void GeneratePasswordConversation()
+{
+    // Conv for generating password
 }
 
 bool CheckForCorrectAnswer(string[] answers, string currentAnswer)
