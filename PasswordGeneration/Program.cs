@@ -6,7 +6,16 @@ Begin();
 
 void Begin()
 {
-    Console.WriteLine("Hello! Thanks for using our program for creating your new passwords.");
+    Console.WriteLine("__________________________________________________________________________________________________________");
+    Console.WriteLine("    ____                                          __   ______                           __            ");
+    Console.WriteLine("   / __ \\____ ____________      ______  _________/ /  / ____/__  ____  ___  _________ _/ /_____  _____");
+    Console.WriteLine("  / /_/ / __ `/ ___/ ___/ | /| / / __ \\/ ___/ __  /  / / __/ _ \\/ __ \\/ _ \\/ ___/ __ `/ __/ __ \\/ ___/");
+    Console.WriteLine(" / ____/ /_/ (__  |__  )| |/ |/ / /_/ / /  / /_/ /  / /_/ /  __/ / / /  __/ /  / /_/ / /_/ /_/ / /    ");
+    Console.WriteLine("/_/    \\__,_/____/____/ |__/|__/\\____/_/   \\__,_/   \\____/\\___/_/ /_/\\___/_/   \\__,_/\\__/\\____/_/     ");
+    Console.WriteLine("                                                                                                      ");
+    Console.WriteLine("_________________________________________________________________________________________________________");
+
+  Console.WriteLine("Hello! Thanks for using our program for creating your new passwords.");
     Console.WriteLine("What do you want to do? (Write the number before the action)");
     Console.WriteLine("1 - Show all saved passwords");
     Console.WriteLine("2 - Create a new password");

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "cvzCEao7K+N2VjPgxH5Ig/MmqM2/nzPQx0YrNOXgYR5KTB2kJZ6MQPyO9EwS451hwqXloWLWNc2vnz5D0+jV6Q==",
+  "dgSpecHash": "Ho0EPfh6UGRk2i1wDnTwJM0LFvJLstaAQa9AFSmNXhiuHBVFgoH/oJa6grndGtYtPvods0qSw4MHN4el7slFkQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\liboj\\RiderProjects\\PVA-projekt\\PasswordGeneration\\PasswordGeneration.csproj",
+  "projectFilePath": "C:\\CODING\\PVA-projekt\\PasswordGeneration\\PasswordGeneration.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }
