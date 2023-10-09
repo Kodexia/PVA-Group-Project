@@ -162,6 +162,10 @@ int InputStringToNumber()
         try
         {
             int tryNumber = Convert.ToInt32(input);
+            if (tryNumber < 0)
+            {
+              throw new FormatException("The number must be positive");
+            }
             returningNumber = tryNumber;
             isNumber = true;
         }
