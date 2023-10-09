@@ -189,7 +189,7 @@ bool CheckForCorrectAnswer(string[] answers, string currentAnswer)
 void ShowAllPasswords()
 {
     string[] encrypted = api.ReadAllPasswordsFromFile();
-    if (encrypted.Length == 0)
+    if (encrypted == null || encrypted.Length == 0)
     {
         Console.WriteLine("You do not have any saved passwords.");
         AskToContinue();
